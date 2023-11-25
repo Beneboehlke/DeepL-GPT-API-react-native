@@ -14,7 +14,8 @@ The existiing Setup to start with contained a frontend part written in react nat
 Depending on your System setup and the expected traffic on your application the way you approach transaltion may shift slightly. For this project live transaltion was chosen, as the traffic isn't, at least for now, expected to be too high and therefore future inconsistencies in the data structure, as well as outdated (bad) translations won't pose issues. Using tis setup you can translate the content right after being fetched from the Server, before being sent to the frontend. That being sayed you may want to transalte your content once and store it for a set period of time in the database before retransalting, using an advanced model. Additionally that may safe cost in translation, as a limit of 500.000 caracters monthly are currently for free, using the DeepL API.
 
 
-### backend 
+
+### Backend 
 The integration in the case of the basense project looks as follows:
 
 With each Object (exrtracted strings), that needs to be translated you call the function 'deeplTranslate(query, targetLang)', which takes two input parameters: the string Array to be translated, as well as the language it's supposed to be translated into. For a more detailed explenation visit: <br>
@@ -39,11 +40,16 @@ For this Project the translations got added as an additional Subobject to the Or
 }
 ```
 
-### frontend
+
+
+### Frontend
 Choosing the preffered langauage for the user is really easy now, as you just create a general function for fetching the transaltion: <br>
 [Translate](./Translate.js) <br>
 
 and call it from within any component where you need transalted user content displayed.
+
+
+----------------
 
 ## GPT integration
 In this Project the OPENAI (GPT) API call happens, for multiple reasons like time sensible content and performance, only on user request.
