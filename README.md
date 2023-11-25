@@ -14,3 +14,5 @@ The existiing Setup to start with contained a frontend part written in react nat
 Depending on your System setup and the expected traffic on your application the way you approach transaltion may shift slightly. For this project live transaltion was chosen, as the traffic isn't, at least for now, expected to be too high and therefore future inconsistencies in the data structure, as well as outdated (bad) translations won't pose issues. That being sayed you may want to transalte your content once and store it for a set period of time in the database before retransalting, using an advanced model. Additionally that may safe cost in translation, as a limit of 500.000 caracters monthly are currently for free, using the DeepL API. 
 
 
+
+
