@@ -39,5 +39,25 @@ For this Project the translations got added as an additional Subobject to the Or
 
 ### frontend
 Choosing the preffered langauage for the user is really easy now, as you just create a general function for fetching the transaltion: <br>
+[Translate](./Translate.js) <br>
+
+and call it from within any component where you need transalted user content displayed.
+
+## GPT integration
+In this Project the OPENAI (GPT) API call happens, for multiple reasons like time sensible content and performance, only on user request.
+
+The gerneral structure is as follows:
+- user requests content in specific components
+- async call to backend using dispatch is made
+- OPENAI API request is handeled in backend
+- response(backend) is formatted into valid JSON file and sent to frontend
+- Object with response(frontend) plus ObjectId is saved to a redux store
+- component tries to render the conent on store state update
+- on JSON Object error component provides Option to retry
+
+This architecture has the advantages that the API Key is savely stored in the backend and due to the response being saved to the store multiple responses can be saved during the session and therefore the API only needs to be called once for every specific component / Object. (data isn't lost when calling the API again for a differnt Object in the same component)
+
+
+
 
 
