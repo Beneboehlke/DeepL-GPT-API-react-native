@@ -7,7 +7,7 @@ For more details on the specific API's visit: <br>
 [Deepl Documentation](https://www.deepl.com/pro-api?cta=header-pro-api) <br>
 [OpenAI (GPT) Documentation](https://openai.com/product)
 
-###General System Setup:
+### General System Setup:
 The existiing Setup to start with contained a frontend part written in react native and a backend part written in Node.js
 
 
