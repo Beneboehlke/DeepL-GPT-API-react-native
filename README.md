@@ -18,5 +18,5 @@ Depending on your System setup and the expected traffic on your application the 
 The integration in the case of the basense project looks as follows:
 
 With each Object, that needs to be translated you call the function 'deeplTranslate(query, targetLang)', which takes two input parameters: the Object to be translated, as well as the language it's supposed to be translated into. For a more detailed look at the code visit: <br>
-[transalte_deepl](./transalte_deepl.mjs)
+[translate_deepl](./translate_deepl.mjs)
 
