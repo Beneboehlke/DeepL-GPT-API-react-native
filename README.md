@@ -25,12 +25,19 @@ For this Project the translations got added as an additional Subobject to the Or
 ```
 {
   //original content of the Object
-  translated_Content {
-    EN {
+  translated_Content: {
+    EN: {
       // english transaltion 
     }
     // alternative translations
+    DE: {
+      // german translation
+    }
   }
 }
 ```
+
+### frontend
+Choosing the preffered langauage for the user is really easy now, as you just create a general function for fetching the transaltion: <br>
+
 
