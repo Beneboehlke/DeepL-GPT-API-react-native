@@ -20,11 +20,12 @@ Depending on your System setup and the expected traffic on your application the 
 ### Backend 
 The integration in the case of the basense project looks as follows:
 
-With each Object (exrtracted strings), that needs to be translated you call the function 'deeplTranslate(query, targetLang)', which takes two input parameters: the string Array to be translated, as well as the language it's supposed to be translated into. For a more detailed explenation visit: <br>
+For each Object that needs to be translated make sure to extract the strings into seperate Arrays in advance.
+For each Array that needs to be translated you call the function 'deeplTranslate(query, targetLang)', which takes two input parameters: the string Array to be translated, as well as the language it's supposed to be translated into. For a more detailed explenation visit: <br>
 
 [translate_deepl](./translate_deepl.mjs) <br>
 
-To translate Objects make sure to extract the strings in advance and map the result it into a (JSON-) Object with the desired structure after transaltion.
+To save the content to the Object map the result into a (JSON-) Object with the desired structure after transaltion.
 
 For this Project the translations got added as an additional Subobject to the Original in order to preserve the Original language, as well as to enable  transaltions in to multiple langauges to be saved to the same Object, using following structure:
 ```
@@ -48,7 +49,7 @@ For this Project the translations got added as an additional Subobject to the Or
 Choosing the preffered langauage for the user is really easy now, as you just create a general function for fetching the transaltion: <br>
 [Translate](./Translate.js) <br>
 
-and call it from within any component where you need transalted user content displayed.
+and call it from within any component where you need translated user content displayed.
 
 
 ----------------
