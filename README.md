@@ -7,12 +7,16 @@ For more details on the specific API's visit: <br>
 [Deepl Documentation](https://www.deepl.com/pro-api?cta=header-pro-api) <br>
 [OpenAI (GPT) Documentation](https://openai.com/product)
 
-### General System Setup
+## General System Setup
 The existiing Setup to start with contained a frontend part written in react native and a backend part written in Node.js. 
 
-### DeepL integration
-Depending on your System setup and the expected traffic on your application the way you approach transaltion may shift slightly. For this project live transaltion was chosen, as the traffic isn't, at least for now, expected to be too high and therefore future inconsistencies in the data structure, as well as outdated (bad) translations won't pose issues. That being sayed you may want to transalte your content once and store it for a set period of time in the database before retransalting, using an advanced model. Additionally that may safe cost in translation, as a limit of 500.000 caracters monthly are currently for free, using the DeepL API. 
+## DeepL integration
+Depending on your System setup and the expected traffic on your application the way you approach transaltion may shift slightly. For this project live transaltion was chosen, as the traffic isn't, at least for now, expected to be too high and therefore future inconsistencies in the data structure, as well as outdated (bad) translations won't pose issues. Using tis setup you can translate the content right after being fetched from the Server, before being sent to the frontend. That being sayed you may want to transalte your content once and store it for a set period of time in the database before retransalting, using an advanced model. Additionally that may safe cost in translation, as a limit of 500.000 caracters monthly are currently for free, using the DeepL API.
 
 
+### backend 
+The integration in the case of the basense project looks as follows:
 
+With each Object, that needs to be translated you call the function 'deeplTranslate(query, targetLang)', which takes two input parameters: the Object to be translated, as well as the language it's supposed to be translated into. For a more detailed look at the code visit: <br>
+[transalte_deepl](./transalte_deepl.mjs)
 
