@@ -17,6 +17,20 @@ Depending on your System setup and the expected traffic on your application the 
 ### backend 
 The integration in the case of the basense project looks as follows:
 
-With each Object, that needs to be translated you call the function 'deeplTranslate(query, targetLang)', which takes two input parameters: the Object to be translated, as well as the language it's supposed to be translated into. For a more detailed look at the code visit: <br>
-[translate_deepl](./translate_deepl.mjs)
+With each Object (exrtracted strings), that needs to be translated you call the function 'deeplTranslate(query, targetLang)', which takes two input parameters: the string Array to be translated, as well as the language it's supposed to be translated into. For a more detailed look at the code visit: <br>
+[translate_deepl](./translate_deepl.mjs) <br>
+To transalted Objects make sure to extract the strings in advance and map it into a (JSON-) Object with the desired structure after transaltion.
+
+For this Project the translations got added as an additional Subobject to the Original in order to preserve the Original language, as well as to enable  transaltions in to multiple langauges to be saved to the same Object, using following structure:
+```
+{
+  //original content of the Object
+  translated_Content {
+    EN {
+      // english transaltion 
+    }
+    // alternative translations
+  }
+}
+```
 
