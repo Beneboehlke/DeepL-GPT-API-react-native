@@ -21,7 +21,7 @@ With each Object (exrtracted strings), that needs to be translated you call the 
 
 [translate_deepl](./translate_deepl.mjs) <br>
 
-To transalted Objects make sure to extract the strings in advance and map it into a (JSON-) Object with the desired structure after transaltion.
+To translate Objects make sure to extract the strings in advance and map the result it into a (JSON-) Object with the desired structure after transaltion.
 
 For this Project the translations got added as an additional Subobject to the Original in order to preserve the Original language, as well as to enable  transaltions in to multiple langauges to be saved to the same Object, using following structure:
 ```
