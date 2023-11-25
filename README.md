@@ -8,7 +8,7 @@ For more details on the specific API's visit: <br>
 [OpenAI (GPT) Documentation](https://openai.com/product)
 
 ## General System Setup
-The existing Setup to start with contained a Frontend written in react native and a backend written in Node.js. 
+The existing Setup to start with contained a Frontend written in react native and a backend written in NodeJs. 
 
 --------
 
