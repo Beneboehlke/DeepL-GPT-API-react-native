@@ -58,15 +58,50 @@ and call it from within any component where you need translated user content dis
 In this Project the OPENAI (GPT) API call happens, for multiple reasons like time sensible content and performance, only on user request.
 
 The gerneral structure is as follows:
-- user requests content in specific components
+Frontend:
+- [user request](#user-request) content in specific components
 - async call to backend using dispatch is made
+Backend:
 - OPENAI API request is handeled in backend
 - response(backend) is formatted into valid JSON file and sent to frontend
+Frontend:
 - Object with response(frontend) plus ObjectId is saved to a redux store
 - component tries to render the conent on store state update
 - on JSON Object error component provides Option to retry
 
-This architecture has the advantages that the API Key is savely stored in the backend and due to the response being saved to the store multiple responses can be saved during the session and therefore the API only needs to be called once for every specific component / Object. (data isn't lost when calling the API again for a differnt Object in the same component)
+This architecture has the advantages that the API Key is savely stored in the backend and due to the response being saved to the store multiple responses can be saved during the session. Therefore the API only needs to be called once for every specific component / Object. (data isn't lost when calling the API again for a differnt Object in the same component)
+
+
+### Frontend
+
+#### User Request
+The user triggers the API call using a Button:
+``` jsx
+<TouchableOpacity onPress={() => handleGPTRequest()}>
+  <Text>
+    // text to trigger call
+    call GPT
+  </Text>
+</TouchableOpacity>
+```
+gets handeled through a const:
+```
+const handleGPTRequest = async () => {
+  // set the variable in the store to laoding content
+  props.GptContextLoading(true);
+  // check if ther is already data or not, if there is retiurn, if not call API
+  if (gptResponse) {
+  console.log(
+    'there is already a response for this item: loading falsse and returning',
+  );
+  props.GptContextLoading(false);
+  return;
+  }
+
+  props.getGptContext(gptInput(), recomm_id);
+};
+```
+
 
 
 
