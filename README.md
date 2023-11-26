@@ -20,11 +20,9 @@ Depending on your System setup and the expected traffic on your application the 
 
 ### Backend 
 For each Object that needs to be translated make sure to extract the strings into seperate Arrays in advance.
-For each Array that needs to be translated you call the function ```deeplTranslate(query, targetLang)```, which takes two input parameters: the string Array to be translated, as well as the language it's supposed to be translated into. For a more detailed explenation visit: <br>
+For each Array that needs to be translated you call the function ```deeplTranslate(query, targetLang)```, which takes two input parameters: the string Array to be translated, as well as the language it's supposed to be translated into. For a more detailed explenation visit: [translate_deepl](./translate_deepl.mjs) <br>
 
-[translate_deepl](./translate_deepl.mjs) <br>
-
-To save the content to the Object map the result (if its an Array) into a (JSON-) Object with the desired structure after transaltion.
+To save the content to the Object map the result (if its an Array) into a (JSON-) Object with the desired structure after translation.
 
 ```jsx
 contentObj.attributes.map((attrObj, index) => {
@@ -38,6 +36,7 @@ contentObj.attributes.map((attrObj, index) => {
 ```
 
 For this Project the translations got added as an additional Subobject to the Original in order to preserve the Original language, as well as to enable transaltions into multiple langauges to be saved to the same Object, using following structure:
+
 ```jsx
 {
   //original content of the Object
@@ -56,8 +55,7 @@ For this Project the translations got added as an additional Subobject to the Or
 
 
 ### Frontend
-Choosing the preffered langauage for the user is really easy now, as you just create a general function for fetching the transaltion in a seperate file: <br>
-[Translate](./Translate.js) <br>
+Choosing the preffered langauage for the user is really easy now, as you just create a general function for fetching the transaltion in a seperate file: [Translate](./Translate.js) <br>
 
 and call it from within any component where you need translated user content displayed:
 
