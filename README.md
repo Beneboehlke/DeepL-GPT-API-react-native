@@ -123,12 +123,43 @@ switch (action.type) {
   }
 ```
 
-!With this event the Selector in [Specific_Recommendation](./Specific_Recommendation) gets triggert and the entry from within the store can be displayed in the component!
-
 see the whole code at [GPT_reducer.js](./GPT_reducer.js)
 
+#### rendering content 
+With this event the Selector in [Specific_Recommendation](./Specific_Recommendation) gets triggert and the entry from within the store can be displayed in the component.
+
+```jsx
+ const {gptEnabled, gptResponseLoading, gptResponses} = useSelector(
+    state => state.gpt,
+  );
+
+ useEffect(() => {
+    const foundElement = gptResponses.find(element => element.id === recomm_id);
+
+    if (foundElement) {
+      setgptResponse(foundElement);
+    } else {
+      // different case
+    }
+  }, [gptResponses, recomm_id]);
+```
+
+with the update of the local const ```gptResponse```the displaying code snipped gets activated and the JSON file gets sent to the component ```GPTRender```:
+
+```jsx
+{gptResponse ? (
+  <View>
+    <GPTRender
+      gptResponse={gptResponse.content}
+    />
+  </View>
+) : null}
+```
+
+which renders the content accordingly:
+
+```jsx
 
 
-
-
+``
 
