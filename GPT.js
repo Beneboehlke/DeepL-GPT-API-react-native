@@ -2,7 +2,7 @@
 import instance from '../../utils/AxiosInstance';
 import * as actionTypes from '../constants/actionTypes';
 
-// function to get the context from the backend
+// action to get the context from the backend
 export const getGptContext = (query, id) => {
   return async dispatch => {
     try {
