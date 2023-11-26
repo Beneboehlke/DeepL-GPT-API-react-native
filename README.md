@@ -13,7 +13,7 @@ The existing Setup to start with contained a Frontend written in react native an
 --------
 
 ## DeepL integration
-Additional Note towards System architecture:
+Additional Note towards System architecture: <br>
 Depending on your System setup and the expected traffic on your application the way you approach transaltion may shift slightly. For this project live transaltion was chosen, as the traffic isn't, at least for now, expected to be too high and therefore future inconsistencies in the data structure, as well as outdated (bad) translations won't pose issues. Using this setup you can translate the content right after being fetched from the Server, before being sent to the frontend. That being sayed you may want to translate your content once and store it for a set period of time in the database before retransalting, using an advanced model, if you expect to encounter greater traffic. Also that may safe cost in translation, as a limit of 500.000 caracters monthly are currently for free, using the DeepL API.
 
 
