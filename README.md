@@ -75,8 +75,7 @@ Frontend: <br>
   - async [call to backend](#backend-call) using dispatch is made <br>
   
 Backend: <br>
-  - OPENAI API request is handeled in backend
-  - response(backend) is formatted into valid JSON file and sent to frontend <br>
+  - [OPENAI API request](./#openai-api-request) is handeled in backend <br>
   
 Frontend: <br>
   - Object with response(frontend) plus ObjectId is [saved to a redux store](#save-response-to-store)
@@ -189,6 +188,66 @@ full code at [GPTRender](./GPTRender)
 
 
 ### Backend
+#### OpenAi API request
 
-#### 
+you will need to install the npm package for OpanAi
+
+```jsx
+npm install openai
+```
+
+Check [OpenAi Documentation](https://platform.openai.com/docs/api-reference) for more details and alternative approaches.
+
+
+For the frontend to reach the backend a route, which on access calls the OpenAi API has to be made available. do so by posting the route to the router: <br>
+build the endpoint in your ```gpt.mjs``` file:
+
+```jsx
+const router = express.Router();
+
+//New route for OpenAI requests
+router.post("/request", verifyAccessToken, async (req, res) => {
+  const inputObject = req.body.params;
+
+  try {
+    const openAIResponse = await postQueryGPT(inputObject);
+
+    return res.json(openAIResponse);
+  } catch (error) {
+    console.error("Error calling OpenAI API router.post:", error);
+  }
+});
+
+export default router;
+```
+
+and make sure to add the route to the list of your routes in a ```routes.mjs``` or simmilar:
+
+```jsx
+import openai from "../routes/gpt.mjs";
+
+export default function (app) {
+  app.use(json());
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  // other routes
+  app.use("/api/openai", openai);
+  app.use(error);
+}
+```
+
+in the ```gpt.mjs```file create a new openai instace and include your API_Key:
+
+```jsx
+const OPENAI_API_KEY = config.get("chatGPTApiKey");
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+```
+
+create a ```postQuery()```function from which you actually call the API and make sure to use the correct model you want. For a list of the available models visit the [OpenAi Documentation]([https://platform.openai.com/docs/api-reference](https://platform.openai.com/docs/api-reference/models)https://platform.openai.com/docs/api-reference/models). Note that some models are free and others aren't.
+
+To optimize the way GPT answers include a [personalized system message](https://platform.openai.com/docs/guides/prompt-engineering)
+
+full code at [gpt.mjs](./gpt.mjs)
+
+
 
