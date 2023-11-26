@@ -91,10 +91,10 @@ const handleGPTRequest = async () => {
 };
 ```
 
-see the whole code at [SpecificRecommendation.js](./SpecificRecommendation)
+see the whole code at [Specific_Recommendation.js](./Specific_Recommendation.js)
 
 #### backend call
-In the action file [GPT.js](./GPT.js) the function takes the input, sends the request to the backend and sends the response to the store defined by an action type, as soon as it arrived.
+In the action file [GPT.js](./GPT.js) the function getGptContext(query, id) takes the input, sends the request to the backend and sends the response to the store defined by an action type, as soon as it arrived.
 Therefore the action types have to be defined somewhere in an actionTypes.js file (probably best loacted e.g. in a constants folder: 
 
 ```jsx
@@ -102,6 +102,14 @@ export const GPT_CONTROLS = 'GPT_CONTROLS';
 export const GPT_CORRUPTED = 'GPT_CORRUPTED';
 export const GPT_LOADING = 'GPT_LOADING';
 ```
+
+see the whole code at [GPT.js](./GPT.js)
+
+#### save response to store 
+The response from the backend call gets send to the GPT stoe [GPT_reducer.js](./GPT_reducer.js) and gets added to the array of gptResponses, via the specific action type case GPT_CONTROLS.
+The gptResponses Array containes all the responses, identifiable by the _id of the database entry.
+
+see the whole code at [GPT_reducer.js](./GPT_reducer.js)
 
 
 
