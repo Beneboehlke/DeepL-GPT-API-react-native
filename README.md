@@ -87,20 +87,12 @@ The user triggers the API call using a Button:
 gets handeled through a const:
 ```
 const handleGPTRequest = async () => {
-  // set the variable in the store to laoding content
-  props.GptContextLoading(true);
-  // check if ther is already data or not, if there is retiurn, if not call API
-  if (gptResponse) {
-  console.log(
-    'there is already a response for this item: loading falsse and returning',
-  );
-  props.GptContextLoading(false);
-  return;
-  }
-
-  props.getGptContext(gptInput(), recomm_id);
+  // call the get Context action in the redux store
 };
 ```
+
+#### backend call
+
 
 
 
