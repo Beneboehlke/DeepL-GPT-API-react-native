@@ -28,7 +28,7 @@ For each Array that needs to be translated you call the function 'deeplTranslate
 To save the content to the Object map the result into a (JSON-) Object with the desired structure after transaltion.
 
 For this Project the translations got added as an additional Subobject to the Original in order to preserve the Original language, as well as to enable  transaltions in to multiple langauges to be saved to the same Object, using following structure:
-```
+```jsx
 {
   //original content of the Object
   translated_Content: {
@@ -108,6 +108,20 @@ see the whole code at [GPT.js](./GPT.js)
 #### save response to store 
 The response from the backend call gets send to the GPT stoe [GPT_reducer.js](./GPT_reducer.js) and gets added to the array of gptResponses, via the specific action type case GPT_CONTROLS.
 The gptResponses Array containes all the responses, identifiable by the _id of the database entry.
+
+```jsx
+switch (action.type) {
+    case actionTypes.GPT_CONTROLS:
+      return {
+        ...state,
+        gptResponseLoading: false,
+        gptResponses: state.gptResponses.concat(action.payload.gptResponses),
+      };
+    // alternative cases
+    default:
+      return state;
+  }
+```
 
 see the whole code at [GPT_reducer.js](./GPT_reducer.js)
 
