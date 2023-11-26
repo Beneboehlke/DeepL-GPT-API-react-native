@@ -156,10 +156,16 @@ with the update of the local const ```gptResponse```the displaying code snipped 
 ) : null}
 ```
 
+full code at [Specific_Recommendation](./Specific_Recommendation)
+
 which renders the content accordingly:
 
 ```jsx
+<ScrollView >
+  <RenderSection title="Konzepte" content={gptResponse.concepts} />
+  <RenderSection title="Nudges" content={gptResponse.nudges} />
+</ScrollView>
+```
 
-
-``
+full code at [GPTRender](./GPTRender)
 
