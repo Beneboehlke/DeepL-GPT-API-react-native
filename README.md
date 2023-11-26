@@ -107,6 +107,7 @@ const handleGPTRequest = async () => {
 
 full code at [Specific_Recommendation.js](./Specific_Recommendation.js)
 
+
 #### backend call
 In the action file [GPT.js](./GPT.js) the function ```getGptContext(query, id)``` takes the input, sends the request to the backend and sends the response to the store defined by an action type, as soon as it arrived.
 Therefore the action types have to be defined somewhere in an ```actionTypes.js``` file (probably best loacted e.g. in a constants folder: 
@@ -118,6 +119,7 @@ export const GPT_LOADING = 'GPT_LOADING';
 ```
 
 full code at [GPT.js](./GPT.js)
+
 
 #### save response to store 
 The response from the backend call gets send to the GPT store [GPT_reducer.js](./GPT_reducer.js) and gets added to the array of ```gptResponses```, via the specific action type case ```GPT_CONTROLS```.
@@ -138,6 +140,7 @@ switch (action.type) {
 ```
 
 full code at [GPT_reducer.js](./GPT_reducer.js)
+
 
 #### rendering content 
 With this event the Selector in [Specific_Recommendation](./Specific_Recommendation) gets triggert and the entry from within the store can be displayed in the component.
@@ -183,4 +186,9 @@ Which renders the content accordingly:
 ```
 
 full code at [GPTRender](./GPTRender)
+
+
+### Backend
+
+#### 
 
