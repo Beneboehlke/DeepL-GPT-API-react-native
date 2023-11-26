@@ -13,21 +13,31 @@ The existing Setup to start with contained a Frontend written in react native an
 --------
 
 ## DeepL integration
-Depending on your System setup and the expected traffic on your application the way you approach transaltion may shift slightly. For this project live transaltion was chosen, as the traffic isn't, at least for now, expected to be too high and therefore future inconsistencies in the data structure, as well as outdated (bad) translations won't pose issues. Using tis setup you can translate the content right after being fetched from the Server, before being sent to the frontend. That being sayed you may want to transalte your content once and store it for a set period of time in the database before retransalting, using an advanced model. Additionally that may safe cost in translation, as a limit of 500.000 caracters monthly are currently for free, using the DeepL API.
+Additional Note towards System architecture:
+Depending on your System setup and the expected traffic on your application the way you approach transaltion may shift slightly. For this project live transaltion was chosen, as the traffic isn't, at least for now, expected to be too high and therefore future inconsistencies in the data structure, as well as outdated (bad) translations won't pose issues. Using this setup you can translate the content right after being fetched from the Server, before being sent to the frontend. That being sayed you may want to translate your content once and store it for a set period of time in the database before retransalting, using an advanced model, if you expect to encounter greater traffic. Also that may safe cost in translation, as a limit of 500.000 caracters monthly are currently for free, using the DeepL API.
 
 
 
 ### Backend 
-The integration in the case of the basense project looks as follows:
-
 For each Object that needs to be translated make sure to extract the strings into seperate Arrays in advance.
-For each Array that needs to be translated you call the function 'deeplTranslate(query, targetLang)', which takes two input parameters: the string Array to be translated, as well as the language it's supposed to be translated into. For a more detailed explenation visit: <br>
+For each Array that needs to be translated you call the function ```deeplTranslate(query, targetLang)```, which takes two input parameters: the string Array to be translated, as well as the language it's supposed to be translated into. For a more detailed explenation visit: <br>
 
 [translate_deepl](./translate_deepl.mjs) <br>
 
-To save the content to the Object map the result into a (JSON-) Object with the desired structure after transaltion.
+To save the content to the Object map the result (if its an Array) into a (JSON-) Object with the desired structure after transaltion.
 
-For this Project the translations got added as an additional Subobject to the Original in order to preserve the Original language, as well as to enable  transaltions in to multiple langauges to be saved to the same Object, using following structure:
+```jsx
+contentObj.attributes.map((attrObj, index) => {
+  if (attrObj?.item && typeof attrObj?.item == "string") {
+    attributesArr.push({
+      ...attrObj,
+      item: translatedResponse[index].text,
+    });
+  }
+});
+```
+
+For this Project the translations got added as an additional Subobject to the Original in order to preserve the Original language, as well as to enable transaltions into multiple langauges to be saved to the same Object, using following structure:
 ```jsx
 {
   //original content of the Object
@@ -46,11 +56,15 @@ For this Project the translations got added as an additional Subobject to the Or
 
 
 ### Frontend
-Choosing the preffered langauage for the user is really easy now, as you just create a general function for fetching the transaltion: <br>
+Choosing the preffered langauage for the user is really easy now, as you just create a general function for fetching the transaltion in a seperate file: <br>
 [Translate](./Translate.js) <br>
 
-and call it from within any component where you need translated user content displayed.
+and call it from within any component where you need translated user content displayed:
 
+```jsx
+{parseTranslatedContent(data, 'desc', chosenLanguage)}
+```
+full code at [Specific_Recommendation.js](./Specific_Recommendation.js)
 
 ----------------
 
@@ -91,11 +105,11 @@ const handleGPTRequest = async () => {
 };
 ```
 
-see the whole code at [Specific_Recommendation.js](./Specific_Recommendation.js)
+full code at [Specific_Recommendation.js](./Specific_Recommendation.js)
 
 #### backend call
 In the action file [GPT.js](./GPT.js) the function ```getGptContext(query, id)``` takes the input, sends the request to the backend and sends the response to the store defined by an action type, as soon as it arrived.
-Therefore the action types have to be defined somewhere in an actionTypes.js file (probably best loacted e.g. in a constants folder: 
+Therefore the action types have to be defined somewhere in an ```actionTypes.js``` file (probably best loacted e.g. in a constants folder: 
 
 ```jsx
 export const GPT_CONTROLS = 'GPT_CONTROLS';
@@ -103,11 +117,11 @@ export const GPT_CORRUPTED = 'GPT_CORRUPTED';
 export const GPT_LOADING = 'GPT_LOADING';
 ```
 
-see the whole code at [GPT.js](./GPT.js)
+full code at [GPT.js](./GPT.js)
 
 #### save response to store 
-The response from the backend call gets send to the GPT store [GPT_reducer.js](./GPT_reducer.js) and gets added to the array of gptResponses, via the specific action type case ```GPT_CONTROLS```.
-The gptResponses Array containes all the responses, identifiable by the _id of the database entry.
+The response from the backend call gets send to the GPT store [GPT_reducer.js](./GPT_reducer.js) and gets added to the array of ```gptResponses```, via the specific action type case ```GPT_CONTROLS```.
+The ```gptResponses``` Array containes all the responses, identifiable by the _id of the database entry.
 
 ```jsx
 switch (action.type) {
@@ -123,7 +137,7 @@ switch (action.type) {
   }
 ```
 
-see the whole code at [GPT_reducer.js](./GPT_reducer.js)
+full code at [GPT_reducer.js](./GPT_reducer.js)
 
 #### rendering content 
 With this event the Selector in [Specific_Recommendation](./Specific_Recommendation) gets triggert and the entry from within the store can be displayed in the component.
@@ -133,6 +147,7 @@ With this event the Selector in [Specific_Recommendation](./Specific_Recommendat
     state => state.gpt,
   );
 
+ // use Effect gets triggert again and sets the local constant gptResponse
  useEffect(() => {
     const foundElement = gptResponses.find(element => element.id === recomm_id);
 
@@ -158,7 +173,7 @@ with the update of the local const ```gptResponse```the displaying code snipped 
 
 full code at [Specific_Recommendation](./Specific_Recommendation)
 
-which renders the content accordingly:
+Which renders the content accordingly:
 
 ```jsx
 <ScrollView >
