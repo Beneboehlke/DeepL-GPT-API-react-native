@@ -85,14 +85,23 @@ The user triggers the API call using a Button:
 </TouchableOpacity>
 ```
 gets handeled through a const:
-```
+```jsx
 const handleGPTRequest = async () => {
   // call the get Context action in the redux store
 };
 ```
 
-#### backend call
+see the whole code at [SpecificRecommendation.js](./SpecificRecommendation)
 
+#### backend call
+In the action file [GPT.js](./GPT.js) the function takes the input, sends the request to the backend and sends the response to the store defined by an action type, as soon as it arrived.
+Therefore the action types have to be defined somewhere in an actionTypes.js file (probably best loacted e.g. in a constants folder: 
+
+```jsx
+export const GPT_CONTROLS = 'GPT_CONTROLS';
+export const GPT_CORRUPTED = 'GPT_CORRUPTED';
+export const GPT_LOADING = 'GPT_LOADING';
+```
 
 
 
