@@ -6,6 +6,7 @@ import * as actionTypes from '../constants/actionTypes';
 export const getGptContext = (query, id) => {
   return async dispatch => {
     try {
+      // !! make sure to choose the right route to the specific endponínt in your backend !!
       let response = await instance.post('/openai/request', {
         params: {
           query,
