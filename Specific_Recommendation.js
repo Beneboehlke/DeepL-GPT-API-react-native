@@ -1,11 +1,16 @@
+// get your imports based on components that are not found
 
+// these consts are connected to the entities in the gpt store and get updated accordingly 
   const {gptEnabled, gptResponseLoading, gptResponses} = useSelector(
     state => state.gpt,
   );
+
+  // local variables 
   const [gptResponse, setgptResponse] = useState(null);
   const [gptResponseOpened, setGptResponseOpened] = useState(false);
   const [recomm_id, setRecomm_id] = useState(null);
 
+  // builds the JSON string input for GPT
   const gptInput = () => {
     let title = parseTranslatedContent(data, 'title', chosenLanguage);
     let desc = parseTranslatedContent(data, 'desc', chosenLanguage);
@@ -26,14 +31,13 @@
       artributes: attributesArr,
       language: language,
     };
-    // console.log('this is input: ', JSON.stringify(input));
     return JSON.stringify(input);
   };
 
+  // sets the recommendation_id as soon as the local data is available 
   useEffect(() => {
     if (data) {
       setRecomm_id(data._id);
-      // console.log('set the recomm_id: ', recomm_id);
     }
   }, [data]);
 
@@ -65,7 +69,6 @@
       props.GptContextLoading(false);
       return;
     }
-
     props.getGptContext(gptInput(), recomm_id);
   };
 
@@ -87,12 +90,12 @@
 
 
 
-// visueller part 
+// visual part 
   return {
     // gptEnabled bestimmt ob das tool für den Nutzer zur Verfügung ssteht
     {gptEnabled ? (
           <View>
-            // sobald die zusatzinformation beantragt ist
+            // as soon as the additional information is vailable
             {gptResponseOpened ? (
               <View>
                 <View style={styles.rowContainer2}>
@@ -138,7 +141,7 @@
         ) : null}
       }
 
-  // actions des Redux Stores werden and props gemapped ( zur einfacheren Verwendung )
+  // redux store actions get mapped to the local props
   const mapDispatchToProps = dispatch => {
     return {
       getGptContext: (query, id) => dispatch(actions.getGptContext(query, id)),
