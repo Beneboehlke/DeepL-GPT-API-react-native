@@ -69,16 +69,16 @@ full code at [Specific_Recommendation.js](./Specific_Recommendation.js)
 ## GPT integration
 In this Project the OPENAI (GPT) API call happens, for multiple reasons like time sensible content and performance, only on user request.
 
-The gerneral structure is as follows:
-Frontend:
-- [user request](#user-request) content in specific components
-- async call to backend using dispatch is made
-Backend:
+The gerneral structure is as follows: <br>
+Frontend: <br>
+- [user requests](#user-request) content in specific components
+- async [call to backend](#backend-call) using dispatch is made <br>
+Backend: <br>
 - OPENAI API request is handeled in backend
-- response(backend) is formatted into valid JSON file and sent to frontend
-Frontend:
-- Object with response(frontend) plus ObjectId is saved to a redux store
-- component tries to render the conent on store state update
+- response(backend) is formatted into valid JSON file and sent to frontend <br>
+Frontend: <br>
+- Object with response(frontend) plus ObjectId is [saved to a redux store](#save-response-to-store)
+- component tries to [render the conent](#rendering-content) on store state update
 - on JSON Object error component provides Option to retry
 
 This architecture has the advantages that the API Key is savely stored in the backend and due to the response being saved to the store multiple responses can be saved during the session. Therefore the API only needs to be called once for every specific component / Object. (data isn't lost when calling the API again for a differnt Object in the same component)
