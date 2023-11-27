@@ -82,7 +82,7 @@ Frontend: <br>
   - component tries to [render the conent](#rendering-content) on store state update
   - on JSON Object error component provides Option to retry
 
-This architecture has the advantages that the API Key is savely stored in the backend and due to the response being saved to the store multiple responses can be saved during the session. Therefore the API only needs to be called once for every specific component / Object. (data isn't lost when calling the API again for a differnt Object in the same component)
+This architecture has the advantages that the API Key is savely stored in the backend and due to the response being saved to the store multiple responses can be saved during the session. Therefore the API only needs to be called once for every specific component / Object. This means the data isn't lost when calling the API again for a differnt Object in the same component.
 
 
 ### Frontend
