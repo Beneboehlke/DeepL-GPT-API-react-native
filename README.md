@@ -184,6 +184,17 @@ Which renders the content accordingly:
 </ScrollView>
 ```
 
+In case of an error accuring while renderign the JSON Object the ```GPTRender``` component renders a short error message as well as a button prompting the user to try calling the API again. 
+
+```jsx
+<View>
+  <Text style={styles.text}>Das hat leider nicht geklappt</Text>
+  <TouchableOpacity onPress={() => onEvent('error')}>
+    <Text style={styles.contextTryAgainBtn}>erneut versuchen</Text>
+  </TouchableOpacity>
+</View>
+```
+
 full code at [GPTRender](./GPTRender)
 
 
