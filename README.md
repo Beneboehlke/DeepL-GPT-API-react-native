@@ -100,7 +100,7 @@ The user triggers the API call using a Button:
 gets handeled through a const:
 ```jsx
 const handleGPTRequest = async () => {
-  // call the get Context action in the redux store
+  // call the 'getContext' action in the redux store
 };
 ```
 
