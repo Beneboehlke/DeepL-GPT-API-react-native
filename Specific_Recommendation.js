@@ -1,6 +1,18 @@
-// get your imports based on components that are not found
+  // variable to store the language preference
+  const [chosenLanguage, setChosenLanguage] = useState(null);
+  const [seeTransalation, setSeeTranslation] = useState(true);
 
-// these consts are connected to the entities in the gpt store and get updated accordingly 
+  const handleLanguageChange = lang => {
+    if (lang == 'original') {
+      setChosenLanguage('original');
+    } else {
+      setChosenLanguage(lang);
+    }
+    setSeeTranslation(!seeTransalation);
+  };
+
+
+  // these consts are connected to the entities in the gpt store and get updated accordingly 
   const {gptEnabled, gptResponseLoading, gptResponses} = useSelector(
     state => state.gpt,
   );
@@ -92,7 +104,16 @@
 
 // visual part 
   return {
-    // gptEnabled bestimmt ob das tool für den Nutzer zur Verfügung ssteht
+    // example use case of translation module
+    <View style={styles.rowContainer1}>
+      <Text style={styles.label}>{t('common:about')}</Text>
+      <Text style={styles.desc}>
+        {/* {data.desc?.trim()} */}
+        {parseTranslatedContent(data, 'desc', chosenLanguage)}
+      </Text>
+    </View>
+    // example use case of the gpt module
+    // gptEnabled definses, if the gpt module is available or not
     {gptEnabled ? (
           <View>
             // as soon as the additional information is vailable
@@ -127,7 +148,7 @@
                 </View>
               </View>
             ) : (
-              // zusatzinformation wurde noch nicht beantragt
+              // additional iformation has not yet been requested by user
               <View style={styles.rowContainer1}>
                 <TouchableOpacity onPress={() => handleGPTRequest()}>
                   <Text style={styles.contextInfoBtnLink}>
