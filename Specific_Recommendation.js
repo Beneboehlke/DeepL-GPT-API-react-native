@@ -21,6 +21,8 @@
   const [gptResponse, setgptResponse] = useState(null);
   const [gptResponseOpened, setGptResponseOpened] = useState(false);
   const [recomm_id, setRecomm_id] = useState(null);
+  const [gptLoading, setGptLoading] = useState(false);
+
 
   // builds the JSON string input for GPT
   const gptInput = () => {
@@ -57,31 +59,33 @@
   useEffect(() => {
     const foundElement = gptResponses.find(element => element.id === recomm_id);
 
-    if (foundElement) {
+     if (foundElement) {
       // console.log('element has been found in gptResponses');
       setgptResponse(foundElement);
     } else {
       // console.log('element has not been found in gptResponses');
       setgptResponse(null);
+      // loadGPTContent() only if ther is no response for this item already found and the loading is not already in progress
+      if (gptLoading) {
+        return;
+      } else {
+        loadGPTContent();
+        setGptLoading(true);
+      }
     }
   }, [gptResponses, recomm_id]);
 
   const dispatch = useDispatch();
 
-  // checks if Response esists otherwise calls action in store initaiting API call (getGptContext) 
+  // function that loads the gpt content
+  const loadGPTContent = async () => {
+    props.GptContextLoading(true);
+    console.log('in loadingGPTContext();');
+    props.getGptContext(gptInput(), recomm_id);
+  };
+
   const handleGPTRequest = async () => {
     setGptResponseOpened(!gptResponseOpened);
-    props.GptContextLoading(true);
-    // check if ther is already data or not, if there is retiurn, if not call API
-
-    if (gptResponse) {
-      console.log(
-        'there is already a response for this item: loading falsse and returning',
-      );
-      props.GptContextLoading(false);
-      return;
-    }
-    props.getGptContext(gptInput(), recomm_id);
   };
 
   const handleRenderGPTCorrupted = data => {
@@ -133,10 +137,10 @@
                     <Text style={styles.closeBtn}> close </Text>
                   </TouchableOpacity>
                 </View>
-                <View>
-                  {gptResponseLoading ? (
+               <View>
+                  {/* {gptResponseLoading ? (
                     <Text style={styles.text}>loading...</Text>
-                  ) : null}
+                  ) : null} */}
                   {gptResponse ? (
                     <View>
                       <GPTRender
@@ -144,7 +148,9 @@
                         onEvent={handleRenderGPTCorrupted}
                       />
                     </View>
-                  ) : null}
+                  ) : (
+                    <Text style={styles.text}>loading...</Text>
+                  )}
                 </View>
               </View>
             ) : (
