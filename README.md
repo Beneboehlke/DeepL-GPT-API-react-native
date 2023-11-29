@@ -71,7 +71,7 @@ In this Project the OPENAI (GPT) API call happens, for multiple reasons like tim
 
 The gerneral structure is as follows: <br>
 Frontend: <br>
-  - [user requests](#user-request) content in specific components
+  - [user requests](#user-request) content by opening components detail view
   - async [call to backend](#backend-call) using dispatch is made <br>
   
 Backend: <br>
@@ -89,19 +89,51 @@ For this thesis the following code was realized in Recommendation and Event in t
 ### Frontend
 
 #### User Request
-The user triggers the API call using a Button:
+The app automatically triggers the API call as he openes the detail view to any recommendation / event in the application:
+
+```jsx
+/// use Effect allows to only start the proccess after the stored answers and the elements _id are available
+useEffect(() => {
+    const foundElement = gptResponses.find(element => element.id === recomm_id);
+
+    if (foundElement) {
+      // context for specific element is already stored
+      setgptResponse(foundElement);
+    } else {
+      // no entry for _id found yet
+      setgptResponse(null);
+      // checking if the process has already been started 
+      if (gptLoading) {
+        return;
+      } else {
+        // if nothing was found and process wasnt yet started the api gets called through loadGPTContent()
+        loadGPTContent();
+        setGptLoading(true);
+      }
+    }
+  }, [gptResponses, recomm_id]);
+
+  // function that loads the gpt content
+  const loadGPTContent = async () => {
+    props.GptContextLoading(true);
+    props.getGptContext(gptInput(), recomm_id);
+  };
+```
+
+
+the users can then open the additional iinformation using a Button
 ``` jsx
 <TouchableOpacity onPress={() => handleGPTRequest()}>
   <Text>
-    // text to trigger call
-    call GPT
+    open GPT context 
   </Text>
 </TouchableOpacity>
 ```
-gets handeled through a const:
+which gets handeled through a const:
 ```jsx
 const handleGPTRequest = async () => {
-  // call the 'getContext' action in the redux store
+  // set the local variable to show either loading state or the context to true
+  setGptResponseOpened(!gptResponseOpened);
 };
 ```
 
