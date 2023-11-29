@@ -83,6 +83,7 @@ Frontend: <br>
   - on JSON Object error component provides Option to retry
 
 This architecture has the advantages that the API Key is savely stored in the backend and due to the response being saved to the store multiple responses can be saved during the session. Therefore the API only needs to be called once for every specific component / Object. This means the data isn't lost when calling the API again for a differnt Object in the same component.
+For this thesis the following code was realized in Recommendation and Event in the basense App. Explanation only involves recommendations loop though, as event loop and functionlity is exactly the same.
 
 
 ### Frontend
